@@ -73,7 +73,11 @@ class AuthorController {
                 `,
                 [full_name, email, nationality, id],
             );
-            res.status(200).send(updatedAuthor.rows[0]);
+            if (updatedAuthor.rows.length > 0) {
+                res.status(200).send(updatedAuthor.rows[0]);
+            } else {
+                res.status(404).send('Author not found');
+            }
         } catch (err) {
             next(err);
         }
